@@ -1,24 +1,15 @@
-require "user.launch"
-require "user.options"
-require "user.keymaps"
-require "user.autocmds"
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
 
-spec "user.autopairs"
-spec "user.cmp"
-spec "user.colorscheme"
-spec "user.comment"
-spec "user.devicons"
-spec "user.lspconfig"
-spec "user.lualine"
-spec "user.mason"
-spec "user.neotab"
-spec "user.none-ls"
-spec "user.nvimtree"
-spec "user.oil"
--- spec "user.pandoc"
-spec "user.telescope"
-spec "user.treesitter"
-spec "user.vim-pandoc"
-spec "user.whichkey"
-
-require "user.lazy"
+require("options")
+require("lazy").setup("plugins")
